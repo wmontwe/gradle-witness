@@ -33,8 +33,8 @@ In the remote directory, the artifact consists of a POM file and a jar or aar, a
 sha1sum hash values for those files.
 
 When gradle retrieves the artifact, it will also retrieve the md5sum and sha1sums to verify that
-they match the calculated md5sum and sha1sum of the retrieved files.  The problem, obviously, is 
-that if someone is able to compromise the remote maven repository and change the jar/aar for a 
+they match the calculated md5sum and sha1sum of the retrieved files.  The problem, obviously, is
+that if someone is able to compromise the remote maven repository and change the jar/aar for a
 dependency to include some malicious functionality, they could just as easily change the md5sum
 and sha1sum values the repository advertises as well.
 
@@ -52,6 +52,7 @@ the project to specify:
     }
 
     dependencyVerification {
+        includedConfigurations += [configurations.testCompile]
         verify = [
                 'com.actionbarsherlock:actionbarsherlock:5ab04d74101f70024b222e3ff9c87bee151ec43331b4a2134b6cc08cf8565819',
                 'com.android.support:support-v4:a4268abd6370c3fd3f94d2a7f9e6e755f5ddd62450cf8bbc62ba789e1274d585',
@@ -67,6 +68,8 @@ The `dependency` definition is the same, but `gradle-witness` allows one to also
 At this point, running `gradle build` will first verify that all of the listed dependencies have
 the specified sha256sums.  If there's a mismatch, the build is aborted.  If the remote repository
 is later compromised, an attacker won't be able to undetectably modify these artifacts.
+
+If needed `includedConfigurations` will add additional configurations like `testCompile` or `androidTestCompile` to dependency verificaiton.
 
 ## Using Witness
 
