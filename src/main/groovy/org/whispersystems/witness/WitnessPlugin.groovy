@@ -62,10 +62,13 @@ class WitnessPlugin implements Plugin<Project> {
             println "    verify = ["
 
             project.dependencyVerification.includedConfigurations.each {
-                it.resolvedConfiguration.resolvedArtifacts.each {
-                    dep ->
-                        println "        '" + dep.moduleVersion.id.group+ ":" + dep.name + ":" + calculateSha256(dep.file) + "',"
-                }
+                conf ->
+                    println "        "
+                    println "        // " + conf.name
+                    conf.resolvedConfiguration.resolvedArtifacts.each {
+                        dep ->
+                            println "        '" + dep.moduleVersion.id.group+ ":" + dep.name + ":" + calculateSha256(dep.file) + "',"
+                    }
             }
 
             println "    ]"
