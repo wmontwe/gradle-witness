@@ -65,7 +65,9 @@ class WitnessPlugin implements Plugin<Project> {
                 conf ->
                     println "        "
                     println "        // " + conf.name
-                    conf.resolvedConfiguration.resolvedArtifacts.each {
+                    conf.resolvedConfiguration.resolvedArtifacts.sort{
+                      a, b -> a.moduleVersion.id.group <=> b.moduleVersion.id.group ?: a.name <=> b.name
+                    }.each {
                         dep ->
                             println "        '" + dep.moduleVersion.id.group+ ":" + dep.name + ":" + calculateSha256(dep.file) + "',"
                     }
