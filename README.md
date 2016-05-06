@@ -69,7 +69,7 @@ At this point, running `gradle build` will first verify that all of the listed d
 the specified sha256sums.  If there's a mismatch, the build is aborted.  If the remote repository
 is later compromised, an attacker won't be able to undetectably modify these artifacts.
 
-If needed `includedConfigurations` will add additional configurations like `testCompile` or `androidTestCompile` to dependency verificaiton.
+If needed `includedConfigurations` will add additional configurations like `testCompile` or `androidTestCompile` to dependency verification.
 
 ## Using Witness
 
